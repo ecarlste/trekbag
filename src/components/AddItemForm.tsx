@@ -1,13 +1,13 @@
-import { Dispatch, SetStateAction, useState } from "react";
 import Button from "./Button";
 import { PackingListItemType } from "../lib/types";
 import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 type AddItemFormProps = {
-  setPackingListItems: Dispatch<SetStateAction<PackingListItemType[]>>;
+  handleAddItem: (newItemName: PackingListItemType) => void;
 };
 
-function AddItemForm({ setPackingListItems }: AddItemFormProps) {
+function AddItemForm({ handleAddItem }: AddItemFormProps) {
   const [text, setText] = useState("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -23,7 +23,7 @@ function AddItemForm({ setPackingListItems }: AddItemFormProps) {
       isPacked: false,
     };
 
-    setPackingListItems((prevItems) => [...prevItems, newItem]);
+    handleAddItem(newItem);
     setText("");
   }
 

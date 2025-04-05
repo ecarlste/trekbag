@@ -14,6 +14,10 @@ function App() {
     PackingListItemType[]
   >(initialPackingListItems);
 
+  const handleAddItem = (newItem: PackingListItemType) => {
+    setPackingListItems((prevItems) => [...prevItems, newItem]);
+  };
+
   return (
     <>
       <BackgroundHeading />
@@ -22,7 +26,7 @@ function App() {
         <Header />
         <PackingList packingListItems={packingListItems} />
         <Sidebar>
-          <AddItemForm setPackingListItems={setPackingListItems} />
+          <AddItemForm handleAddItem={handleAddItem} />
           <ButtonGroup />
         </Sidebar>
       </main>
