@@ -1,4 +1,5 @@
 import { PackingListItemType } from "../lib/types";
+import PackingListEmpty from "./PackingListEmpty";
 import PackingListItem from "./PackingListItem";
 
 type PackingListProps = {
@@ -14,6 +15,8 @@ function PackingList({
 }: PackingListProps) {
   return (
     <ul className="packing-list">
+      {items.length === 0 && <PackingListEmpty />}
+
       {items.map((item) => (
         <PackingListItem
           key={item.id}
