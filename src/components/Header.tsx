@@ -1,11 +1,19 @@
 import Counter from "./Counter";
 import Logo from "./Logo";
 
-function Header() {
+type HeaderProps = {
+  completedItemCount: number;
+  totalItemCount: number;
+};
+
+function Header({ completedItemCount, totalItemCount }: HeaderProps) {
   return (
     <header>
       <Logo />
-      <Counter />
+      <Counter
+        completedItemCount={completedItemCount}
+        totalItemCount={totalItemCount}
+      />
     </header>
   );
 }
