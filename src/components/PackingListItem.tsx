@@ -9,7 +9,7 @@ function PackingListItem({ item }: PackingListItemProps) {
   return (
     <li className="packing-list-item">
       <label>
-        <input type="checkbox" />
+        <input type="checkbox" checked={item.isPacked} />
         {item.name}
       </label>
       <button>

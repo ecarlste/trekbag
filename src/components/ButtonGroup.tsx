@@ -1,16 +1,11 @@
-import { secondaryButtons } from "../lib/constants";
-import Button from "./Button";
+import { ReactNode } from "react";
 
-function ButtonGroup() {
-  return (
-    <section className="button-group">
-      {secondaryButtons.map((buttonText) => (
-        <Button key={buttonText} variant="secondary">
-          {buttonText}
-        </Button>
-      ))}
-    </section>
-  );
+type ButtonGroupProps = {
+  children: ReactNode;
+};
+
+function ButtonGroup({ children }: ButtonGroupProps) {
+  return <section className="button-group">{children}</section>;
 }
 
 export default ButtonGroup;

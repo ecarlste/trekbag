@@ -5,10 +5,3 @@ export const initialPackingListItems = [
   { id: uuidv4(), name: "passport", isPacked: false },
   { id: uuidv4(), name: "charger", isPacked: false },
 ];
-
-export const secondaryButtons = [
-  "Mark all as complete",
-  "Mark all as incomplete",
-  "Reset to initial",
-  "Remove all items",
-];

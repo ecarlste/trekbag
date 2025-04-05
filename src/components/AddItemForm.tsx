@@ -2,10 +2,10 @@ import Button from "./Button";
 import { useState } from "react";
 
 type AddItemFormProps = {
-  handleAddItem: (newItemName: string) => void;
+  onAddItem: (newItemName: string) => void;
 };
 
-function AddItemForm({ handleAddItem }: AddItemFormProps) {
+function AddItemForm({ onAddItem }: AddItemFormProps) {
   const [text, setText] = useState("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -15,7 +15,7 @@ function AddItemForm({ handleAddItem }: AddItemFormProps) {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    handleAddItem(text);
+    onAddItem(text);
     setText("");
   }
 
