@@ -4,17 +4,22 @@ import { PackingListItemType } from "../lib/types";
 type PackingListItemProps = {
   item: PackingListItemType;
   handleDeleteItem: (id: string) => void;
+  handleToggleItemPacked: (id: string) => void;
 };
 
-function PackingListItem({ item, handleDeleteItem }: PackingListItemProps) {
-  const handleToggleIsPacked = () => {
-    item.isPacked = !item.isPacked;
-  };
-
+function PackingListItem({
+  item,
+  handleDeleteItem,
+  handleToggleItemPacked,
+}: PackingListItemProps) {
   return (
     <li className="packing-list-item">
-      <label onClick={handleToggleIsPacked}>
-        <input type="checkbox" checked={item.isPacked} />
+      <label>
+        <input
+          type="checkbox"
+          checked={item.isPacked}
+          onChange={() => handleToggleItemPacked(item.id)}
+        />
         {item.name}
       </label>
       <button onClick={() => handleDeleteItem(item.id)}>

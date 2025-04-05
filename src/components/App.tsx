@@ -29,6 +29,21 @@ function App() {
     );
   };
 
+  const handleToggleItemPacked = (id: string) => {
+    setPackingListItems((prevItems) =>
+      prevItems.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            isPacked: !item.isPacked,
+          };
+        }
+
+        return item;
+      })
+    );
+  };
+
   const handleMarkAllAsComplete = () => {
     setPackingListItems((prevItems) =>
       prevItems.map((item) => ({
@@ -64,6 +79,7 @@ function App() {
         <PackingList
           items={packingListItems}
           handleDeleteItem={handleDeteteItem}
+          handleToggleItemPacked={handleToggleItemPacked}
         />
 
         <Sidebar>

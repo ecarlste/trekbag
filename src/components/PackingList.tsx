@@ -4,9 +4,14 @@ import PackingListItem from "./PackingListItem";
 type PackingListProps = {
   items: PackingListItemType[];
   handleDeleteItem: (id: string) => void;
+  handleToggleItemPacked: (id: string) => void;
 };
 
-function PackingList({ items, handleDeleteItem }: PackingListProps) {
+function PackingList({
+  items,
+  handleDeleteItem,
+  handleToggleItemPacked,
+}: PackingListProps) {
   return (
     <ul className="packing-list">
       {items.map((item) => (
@@ -14,6 +19,7 @@ function PackingList({ items, handleDeleteItem }: PackingListProps) {
           key={item.id}
           item={item}
           handleDeleteItem={handleDeleteItem}
+          handleToggleItemPacked={handleToggleItemPacked}
         />
       ))}
     </ul>
