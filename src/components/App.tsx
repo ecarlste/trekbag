@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundHeading from "./BackgroundHeading";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -12,9 +12,13 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "./Button";
 
 function App() {
-  const [packingListItems, setPackingListItems] = useState<
-    PackingListItemType[]
-  >(initialPackingListItems);
+  const [packingListItems, setPackingListItems] = useState(() => {
+    const itemsFromLocalStorage: PackingListItemType[] = JSON.parse(
+      localStorage.getItem("items") || "null"
+    );
+
+    return itemsFromLocalStorage || initialPackingListItems;
+  });
 
   const handleAddItem = (newItemName: string) => {
     setPackingListItems((prevItems) => [
@@ -69,6 +73,10 @@ function App() {
   const handleRemoveAllItems = () => {
     setPackingListItems([]);
   };
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(packingListItems));
+  }, [packingListItems]);
 
   return (
     <>
