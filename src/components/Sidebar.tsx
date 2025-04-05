@@ -1,14 +1,9 @@
-import AddItemForm from "./AddItemForm";
-import ButtonGroup from "./ButtonGroup";
+type SidebarProps = {
+  children: React.ReactNode;
+};
 
-function Sidebar() {
-  return (
-    <div className="sidebar">
-      <AddItemForm />
-
-      <ButtonGroup />
-    </div>
-  );
+function Sidebar({ children }: SidebarProps) {
+  return <div className="sidebar">{children}</div>;
 }
 
 export default Sidebar;

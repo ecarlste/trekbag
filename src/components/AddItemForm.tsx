@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Button from "./Button";
+import { PackingListItemType } from "../lib/types";
+import { v4 as uuidv4 } from "uuid";
 
-function AddItemForm() {
+type AddItemFormProps = {
+  setPackingListItems: Dispatch<SetStateAction<PackingListItemType[]>>;
+};
+
+function AddItemForm({ setPackingListItems }: AddItemFormProps) {
   const [text, setText] = useState("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -10,7 +16,17 @@ function AddItemForm() {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    console.log("Adding item:", text);
+
+    setPackingListItems((prevItems) => {
+      const newItem: PackingListItemType = {
+        id: uuidv4(),
+        name: text,
+        isPacked: false,
+      };
+
+      return [...prevItems, newItem];
+    });
+
     setText("");
   }
 
