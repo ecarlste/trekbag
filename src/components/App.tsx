@@ -8,14 +8,18 @@ import { initialPackingListItems } from "../lib/constants";
 import AddItemForm from "./AddItemForm";
 import ButtonGroup from "./ButtonGroup";
 import { PackingListItemType } from "../lib/types";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [packingListItems, setPackingListItems] = useState<
     PackingListItemType[]
   >(initialPackingListItems);
 
-  const handleAddItem = (newItem: PackingListItemType) => {
-    setPackingListItems((prevItems) => [...prevItems, newItem]);
+  const handleAddItem = (newItemName: string) => {
+    setPackingListItems((prevItems) => [
+      ...prevItems,
+      { id: uuidv4(), name: newItemName, isPacked: false },
+    ]);
   };
 
   return (

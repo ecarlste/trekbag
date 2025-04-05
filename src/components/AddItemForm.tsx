@@ -1,10 +1,8 @@
 import Button from "./Button";
-import { PackingListItemType } from "../lib/types";
-import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
 type AddItemFormProps = {
-  handleAddItem: (newItemName: PackingListItemType) => void;
+  handleAddItem: (newItemName: string) => void;
 };
 
 function AddItemForm({ handleAddItem }: AddItemFormProps) {
@@ -17,13 +15,7 @@ function AddItemForm({ handleAddItem }: AddItemFormProps) {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const newItem: PackingListItemType = {
-      id: uuidv4(),
-      name: text,
-      isPacked: false,
-    };
-
-    handleAddItem(newItem);
+    handleAddItem(text);
     setText("");
   }
 
