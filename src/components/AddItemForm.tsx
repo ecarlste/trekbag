@@ -17,16 +17,13 @@ function AddItemForm({ setPackingListItems }: AddItemFormProps) {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    setPackingListItems((prevItems) => {
-      const newItem: PackingListItemType = {
-        id: uuidv4(),
-        name: text,
-        isPacked: false,
-      };
+    const newItem: PackingListItemType = {
+      id: uuidv4(),
+      name: text,
+      isPacked: false,
+    };
 
-      return [...prevItems, newItem];
-    });
-
+    setPackingListItems((prevItems) => [...prevItems, newItem]);
     setText("");
   }
 
