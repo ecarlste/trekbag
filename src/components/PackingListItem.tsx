@@ -1,13 +1,15 @@
+import { PackingListItemType } from "../lib/types";
+
 type PackingListItemProps = {
-  text: string;
+  item: PackingListItemType;
 };
 
-function PackingListItem({ text }: PackingListItemProps) {
+function PackingListItem({ item }: PackingListItemProps) {
   return (
     <li className="packing-list-item">
       <label>
         <input type="checkbox" />
-        {text}
+        {item.name}
       </label>
     </li>
   );
