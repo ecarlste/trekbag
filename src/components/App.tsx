@@ -1,7 +1,7 @@
 import BackgroundHeading from "./BackgroundHeading";
 import Footer from "./Footer";
 import Header from "./Header";
-import ItemList from "./ItemList";
+import PackingList from "./PackingList";
 import Sidebar from "./Sidebar";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
 
       <main>
         <Header />
-        <ItemList />
+        <PackingList />
         <Sidebar />
       </main>
 
