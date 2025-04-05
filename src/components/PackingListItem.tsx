@@ -3,14 +3,14 @@ import { PackingListItemType } from "../lib/types";
 
 type PackingListItemProps = {
   item: PackingListItemType;
-  handleDeleteItem: (id: string) => void;
-  handleToggleItemPacked: (id: string) => void;
+  onDeleteItem: (id: string) => void;
+  onToggleItemPacked: (id: string) => void;
 };
 
 function PackingListItem({
   item,
-  handleDeleteItem,
-  handleToggleItemPacked,
+  onDeleteItem,
+  onToggleItemPacked,
 }: PackingListItemProps) {
   return (
     <li className="packing-list-item">
@@ -18,11 +18,11 @@ function PackingListItem({
         <input
           type="checkbox"
           checked={item.isPacked}
-          onChange={() => handleToggleItemPacked(item.id)}
+          onChange={() => onToggleItemPacked(item.id)}
         />
         {item.name}
       </label>
-      <button onClick={() => handleDeleteItem(item.id)}>
+      <button onClick={() => onDeleteItem(item.id)}>
         <X className="delete-button-x" />
       </button>
     </li>

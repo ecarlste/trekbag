@@ -18,8 +18,8 @@ function PackingList({
         <PackingListItem
           key={item.id}
           item={item}
-          handleDeleteItem={handleDeleteItem}
-          handleToggleItemPacked={handleToggleItemPacked}
+          onDeleteItem={handleDeleteItem}
+          onToggleItemPacked={handleToggleItemPacked}
         />
       ))}
     </ul>
