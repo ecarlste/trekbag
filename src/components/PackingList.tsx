@@ -2,14 +2,19 @@ import { PackingListItemType } from "../lib/types";
 import PackingListItem from "./PackingListItem";
 
 type PackingListProps = {
-  packingListItems: PackingListItemType[];
+  items: PackingListItemType[];
+  handleDeleteItem: (id: string) => void;
 };
 
-function PackingList({ packingListItems }: PackingListProps) {
+function PackingList({ items, handleDeleteItem }: PackingListProps) {
   return (
     <ul className="packing-list">
-      {packingListItems.map((item) => (
-        <PackingListItem key={item.id} item={item} />
+      {items.map((item) => (
+        <PackingListItem
+          key={item.id}
+          item={item}
+          handleDeleteItem={handleDeleteItem}
+        />
       ))}
     </ul>
   );

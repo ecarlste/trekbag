@@ -23,6 +23,12 @@ function App() {
     ]);
   };
 
+  const handleDeteteItem = (id: string) => {
+    setPackingListItems((prevItems) =>
+      prevItems.filter((item) => item.id !== id)
+    );
+  };
+
   const handleMarkAllAsComplete = () => {
     setPackingListItems((prevItems) =>
       prevItems.map((item) => ({
@@ -55,7 +61,10 @@ function App() {
 
       <main>
         <Header />
-        <PackingList packingListItems={packingListItems} />
+        <PackingList
+          items={packingListItems}
+          handleDeleteItem={handleDeteteItem}
+        />
 
         <Sidebar>
           <AddItemForm onAddItem={handleAddItem} />
