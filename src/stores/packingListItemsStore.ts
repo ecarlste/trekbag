@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { initialPackingListItems } from "../lib/constants";
 import { PackingListItemType } from "../lib/types";
 import { v4 as uuidv4 } from "uuid";
+import { persist } from "zustand/middleware";
 
 type PackingListItemsState = {
   packingListItems: PackingListItemType[];
@@ -15,55 +16,60 @@ type PackingListItemsState = {
 };
 
 export const usePackingListItemsStore = create<PackingListItemsState>()(
-  (set) => ({
-    packingListItems: initialPackingListItems,
-    addItem: (newItemName) =>
-      set((state) => ({
-        packingListItems: [
-          ...state.packingListItems,
-          { id: uuidv4(), name: newItemName, isPacked: false },
-        ],
-      })),
-    deleteItem: (id: string) =>
-      set((state) => ({
-        packingListItems: state.packingListItems.filter(
-          (item) => item.id !== id
-        ),
-      })),
-    toggleItemPacked: (id: string) =>
-      set((state) => ({
-        packingListItems: state.packingListItems.map((item) => {
-          if (item.id === id) {
-            return {
-              ...item,
-              isPacked: !item.isPacked,
-            };
-          }
+  persist(
+    (set) => ({
+      packingListItems: initialPackingListItems,
+      addItem: (newItemName) =>
+        set((state) => ({
+          packingListItems: [
+            ...state.packingListItems,
+            { id: uuidv4(), name: newItemName, isPacked: false },
+          ],
+        })),
+      deleteItem: (id: string) =>
+        set((state) => ({
+          packingListItems: state.packingListItems.filter(
+            (item) => item.id !== id
+          ),
+        })),
+      toggleItemPacked: (id: string) =>
+        set((state) => ({
+          packingListItems: state.packingListItems.map((item) => {
+            if (item.id === id) {
+              return {
+                ...item,
+                isPacked: !item.isPacked,
+              };
+            }
 
-          return item;
-        }),
-      })),
-    markAllAsComplete: () =>
-      set((state) => ({
-        packingListItems: state.packingListItems.map((item) => ({
-          ...item,
-          isPacked: true,
+            return item;
+          }),
         })),
-      })),
-    markAllAsIncomplete: () =>
-      set((state) => ({
-        packingListItems: state.packingListItems.map((item) => ({
-          ...item,
-          isPacked: false,
+      markAllAsComplete: () =>
+        set((state) => ({
+          packingListItems: state.packingListItems.map((item) => ({
+            ...item,
+            isPacked: true,
+          })),
         })),
-      })),
-    resetToInitial: () =>
-      set(() => ({
-        packingListItems: initialPackingListItems,
-      })),
-    removeAllItems: () =>
-      set(() => ({
-        packingListItems: [],
-      })),
-  })
+      markAllAsIncomplete: () =>
+        set((state) => ({
+          packingListItems: state.packingListItems.map((item) => ({
+            ...item,
+            isPacked: false,
+          })),
+        })),
+      resetToInitial: () =>
+        set(() => ({
+          packingListItems: initialPackingListItems,
+        })),
+      removeAllItems: () =>
+        set(() => ({
+          packingListItems: [],
+        })),
+    }),
+    {
+      name: "packing-list-items-storage",
+    }
+  )
 );
