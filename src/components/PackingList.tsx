@@ -2,7 +2,7 @@ import Select from "react-select";
 import { PackingListItemType } from "../lib/types";
 import PackingListEmpty from "./PackingListEmpty";
 import PackingListItem from "./PackingListItem";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 type PackingListProps = {
   items: PackingListItemType[];
@@ -23,17 +23,21 @@ function PackingList({
 }: PackingListProps) {
   const [sortBy, setSortBy] = useState(sortingOptions[0].value);
 
-  const sortedItems = [...items].sort((a) => {
-    if (sortBy === "packed") {
-      return a.isPacked ? -1 : 1;
-    }
+  const sortedItems = useMemo(
+    () =>
+      [...items].sort((a) => {
+        if (sortBy === "packed") {
+          return a.isPacked ? -1 : 1;
+        }
 
-    if (sortBy === "unpacked") {
-      return a.isPacked ? 1 : -1;
-    }
+        if (sortBy === "unpacked") {
+          return a.isPacked ? 1 : -1;
+        }
 
-    return 0;
-  });
+        return 0;
+      }),
+    [items, sortBy]
+  );
 
   return (
     <ul className="packing-list">
