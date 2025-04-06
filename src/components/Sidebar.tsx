@@ -1,9 +1,16 @@
-type SidebarProps = {
-  children: React.ReactNode;
-};
+import { usePackingListItemsStore } from "../stores/packingListItemsStore";
+import AddItemForm from "./AddItemForm";
+import ButtonGroup from "./ButtonGroup";
 
-function Sidebar({ children }: SidebarProps) {
-  return <div className="sidebar">{children}</div>;
+function Sidebar() {
+  const addItem = usePackingListItemsStore((state) => state.addItem);
+
+  return (
+    <div className="sidebar">
+      <AddItemForm onAddItem={addItem} />
+      <ButtonGroup />
+    </div>
+  );
 }
 
 export default Sidebar;

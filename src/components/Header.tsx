@@ -1,18 +1,20 @@
+import { usePackingListItemsStore } from "../stores/packingListItemsStore";
 import Counter from "./Counter";
 import Logo from "./Logo";
 
-type HeaderProps = {
-  completedItemCount: number;
-  totalItemCount: number;
-};
+function Header() {
+  const packingListItems = usePackingListItemsStore(
+    (state) => state.packingListItems
+  );
 
-function Header({ completedItemCount, totalItemCount }: HeaderProps) {
   return (
     <header>
       <Logo />
       <Counter
-        completedItemCount={completedItemCount}
-        totalItemCount={totalItemCount}
+        completedItemCount={
+          packingListItems.filter((item) => item.isPacked).length
+        }
+        totalItemCount={packingListItems.length}
       />
     </header>
   );

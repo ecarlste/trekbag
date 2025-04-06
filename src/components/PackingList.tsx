@@ -1,14 +1,8 @@
 import Select from "react-select";
-import { PackingListItemType } from "../lib/types";
 import PackingListEmpty from "./PackingListEmpty";
 import PackingListItem from "./PackingListItem";
 import { useMemo, useState } from "react";
-
-type PackingListProps = {
-  items: PackingListItemType[];
-  handleDeleteItem: (id: string) => void;
-  handleToggleItemPacked: (id: string) => void;
-};
+import { usePackingListItemsStore } from "../stores/packingListItemsStore";
 
 const sortingOptions = [
   { value: "default", label: "Sort by Default" },
@@ -16,16 +10,19 @@ const sortingOptions = [
   { value: "unpacked", label: "Sort by Unpacked" },
 ];
 
-function PackingList({
-  items,
-  handleDeleteItem,
-  handleToggleItemPacked,
-}: PackingListProps) {
+function PackingList() {
+  const packingListItems = usePackingListItemsStore(
+    (state) => state.packingListItems
+  );
+  const deleteItem = usePackingListItemsStore((state) => state.deleteItem);
+  const toggleItemPacked = usePackingListItemsStore(
+    (state) => state.toggleItemPacked
+  );
   const [sortBy, setSortBy] = useState(sortingOptions[0].value);
 
   const sortedItems = useMemo(
     () =>
-      [...items].sort((a) => {
+      [...packingListItems].sort((a) => {
         if (sortBy === "packed") {
           return a.isPacked ? -1 : 1;
         }
@@ -36,14 +33,14 @@ function PackingList({
 
         return 0;
       }),
-    [items, sortBy]
+    [packingListItems, sortBy]
   );
 
   return (
     <ul className="packing-list">
-      {items.length === 0 && <PackingListEmpty />}
+      {packingListItems.length === 0 && <PackingListEmpty />}
 
-      {items.length > 0 && (
+      {packingListItems.length > 0 && (
         <section className="sorting">
           <Select
             options={sortingOptions}
@@ -57,8 +54,8 @@ function PackingList({
         <PackingListItem
           key={item.id}
           item={item}
-          onDeleteItem={handleDeleteItem}
-          onToggleItemPacked={handleToggleItemPacked}
+          onDeleteItem={deleteItem}
+          onToggleItemPacked={toggleItemPacked}
         />
       ))}
     </ul>
